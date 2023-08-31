@@ -1,3 +1,8 @@
+# more generated files
+INSTALL
+python/*.egg-info
+tools/src/hfst-check-alpha
+
 # Compiled Object files
 *.slo
 *.lo

@@ -2,6 +2,8 @@
 
 """
 setup for HFST-swig
+
+2txt: build with --inplace --local-hfst
 """
 
 import os
@@ -33,9 +35,9 @@ if platform == "darwin":
         extra_compile_arguments.extend(["-stdlib=libc++", "-mmacosx-version-min=10.7"])
 
 # If you wish to link hfst c++ library statically, use:
-# library_dirs = []
-# libraries = []
-# extra_objects = absolute_libhfst_src_path + "/.libs/libhfst.a"
+#library_dirs = []
+#libraries = []
+#extra_objects = absolute_libhfst_src_path + "/.libs/libhfst.a"
 
 libhfst_module = Extension('_libhfst',
                            language = "c++",
@@ -49,8 +51,12 @@ libhfst_module = Extension('_libhfst',
                            extra_link_args = extra_link_arguments
                            )
 
-setup(name = 'libhfst_swig',
-      version = '3.16.0_beta',
+## XXX(moo): build the parent library
+assert os.system('./build-libhfst.sh') == 0, 'failed to build libhfst'
+
+setup(name = 'libhfst_2txt',
+      #version = '3.16.0_beta',
+      version = '3.16.0.0b1',
       author = 'HFST team',
       author_email = 'hfst-bugs@helsinki.fi',
       url = 'http://hfst.github.io/',
